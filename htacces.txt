@@ -1,0 +1,3 @@
+Nótese que dependiendo del directorio raíz de la aplicación, probablemente se deba
+modificar la línea RewriteRule ^usuarios/ usuarios/controller.php
+65
