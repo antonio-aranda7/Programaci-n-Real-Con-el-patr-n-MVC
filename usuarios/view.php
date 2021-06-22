@@ -11,13 +11,14 @@
             'VIEW_GET_USER'=>MODULO.VIEW_GET_USER.'/',
             'VIEW_EDIT_USER'=>MODULO.VIEW_EDIT_USER.'/',
             'VIEW_DELETE_USER'=>MODULO.VIEW_DELETE_USER.'/'
+            //'VIEW_REPORT_USER'=>MODULO.VIEW_DELETE_USER.'/'
         ),
-
+        //mvc
         'form_actions'=>array(
-            'SET'=>'/mvc/'.MODULO.SET_USER.'/',
-            'GET'=>'/mvc/'.MODULO.GET_USER.'/',
-            'DELETE'=>'/mvc/'.MODULO.DELETE_USER.'/',
-            'EDIT'=>'/mvc/'.MODULO.EDIT_USER.'/'
+            'SET'=>'/MVC/'.MODULO.SET_USER.'/',
+            'GET'=>'/MVC/'.MODULO.GET_USER.'/',
+            'DELETE'=>'/MVC/'.MODULO.DELETE_USER.'/',
+            'EDIT'=>'/MVC/'.MODULO.EDIT_USER.'/'
         )
     );
 

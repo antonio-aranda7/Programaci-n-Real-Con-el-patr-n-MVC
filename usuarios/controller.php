@@ -7,12 +7,14 @@
     function handler() {
         $event = VIEW_GET_USER;
         $uri = $_SERVER['REQUEST_URI'];
-        $peticiones = array(SET_USER, GET_USER, DELETE_USER, EDIT_USER,
+        $peticiones = array(SET_USER, GET_USER, DELETE_USER, EDIT_USER,/*REPORT_USER*/
             VIEW_SET_USER, VIEW_GET_USER, VIEW_DELETE_USER,
-            VIEW_EDIT_USER);
+            VIEW_EDIT_USER/*, VIEW_EPORT_USER*/);
 
         foreach ($peticiones as $peticion) {
+            //Crea todas las rutas virtuales Usuarios/set,etc
             $uri_peticion = MODULO.$peticion.'/';
+            //Existe alguna url valida
             if( strpos($uri, $uri_peticion) == true ) {
                 $event = $peticion;
             }
@@ -49,7 +51,17 @@
                 $data = array('mensaje'=>$usuario->mensaje);
                 retornar_vista(VIEW_GET_USER, $data);
                 break;
-
+            /*
+            case REPORT_USER:
+                $usuario->get($user_data);
+                $data = array(
+                    'nombre'=>$usuario->nombre,
+                    'apellido'=>$usuario->apellido,
+                    'email'=>$usuario->email
+                );
+                retornar_vista(VIEW_EDIT_USER, $data);
+                break;
+            */
             default:
             retornar_vista($event);
         }
