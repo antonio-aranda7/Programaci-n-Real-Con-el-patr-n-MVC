@@ -7,8 +7,7 @@
         protected $query;
         protected $rows = array();
         private $conn;
-        # Agregaremos la propiedad $mensaje, a fin de que el objeto, pueda comunicarse a
-través de mensajes con el resto de la aplicación.
+        # Agregaremos la propiedad $mensaje, a fin de que el objeto, pueda comunicarse a través de mensajes con el resto de la aplicación.
         public $mensaje = 'Hecho';
         # métodos abstractos para ABM de clases que hereden
         abstract protected function get();
