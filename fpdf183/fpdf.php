@@ -1,6 +1,3 @@
-
-
-
 <?php
 /*******************************************************************************
 * FPDF                                                                         *
@@ -9,7 +6,7 @@
 * Date:    2021-04-18                                                          *
 * Author:  Olivier PLATHEY                                                     *
 *******************************************************************************/
-//require('C:\xampp\htdocs\phpEjemplos\MVCEjemplo\MVCPHP\fpdf183\fpdf.php');
+
 define('FPDF_VERSION','1.83');
 
 class FPDF
