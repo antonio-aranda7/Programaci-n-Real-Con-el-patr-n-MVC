@@ -3,16 +3,19 @@
     require_once('constants.php');
     require_once('model.php');
     require_once('view.php');
+    require_once('D:\XAMPP\htdocs\MVC\mysql_table\mysql_table.php');
 
     function handler() {
         $event = VIEW_GET_USER;
         $uri = $_SERVER['REQUEST_URI'];
-        $peticiones = array(SET_USER, GET_USER, DELETE_USER, EDIT_USER,
+        $peticiones = array(SET_USER, GET_USER, DELETE_USER, EDIT_USER, REPORT_USER,
             VIEW_SET_USER, VIEW_GET_USER, VIEW_DELETE_USER,
-            VIEW_EDIT_USER);
+            VIEW_EDIT_USER, VIEW_REPORT_USER);
 
         foreach ($peticiones as $peticion) {
+            //Crea todas las rutas virtuales Usuarios/set,etc
             $uri_peticion = MODULO.$peticion.'/';
+            //Existe alguna url valida
             if( strpos($uri, $uri_peticion) == true ) {
                 $event = $peticion;
             }
@@ -49,11 +52,27 @@
                 $data = array('mensaje'=>$usuario->mensaje);
                 retornar_vista(VIEW_GET_USER, $data);
                 break;
+            
+            case REPORT_USER: $usuario->reporte();//resultados en $usuarios->rows
+                
+                $link = mysqli_connect('localhost','root','','dbmvc');
 
+                $pdf = new PDF();
+                $pdf->AddPage("P");
+                //Adecuar metodo table. acepta el resultado de consulta y se tiene el resultado como arreglo $usuario->rows
+                //$usuario->rows
+                //$pdf->Table($usuario->rows, $arregloNombresCols);
+                $pdf->Table($link,'SELECT apellido, nombre, email FROM usuarios ORDER BY apellido');
+                $pdf->Output();          
+                
+                //retornar_vista(VIEW_EDIT_USER, $data);
+                break;
+            
             default:
             retornar_vista($event);
         }
     }
+
 
     function set_obj() {
         $obj = new Usuario();
@@ -82,5 +101,19 @@
         }
         return $user_data;
     }
+
+    class PDF extends PDF_MySQL_Table
+    {
+        function Header()
+        {
+            // Title
+            $this->SetFont('Arial','',18);
+            $this->Cell(0,6,'Listado de Usuarios',0,1,'C');
+            $this->Ln(10);
+            // Ensure table header is printed
+            parent::Header();
+        }
+    }
+
     handler();
 ?>

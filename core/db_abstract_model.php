@@ -1,11 +1,11 @@
 <?php
     abstract class DBAbstractModel {
         private static $db_host = 'localhost';
-        private static $db_user = 'usuario';
-        private static $db_pass = 'contraseña';
-        protected $db_name = 'mydb';
+        private static $db_user = 'root';
+        private static $db_pass = '';
+        protected $db_name = 'dbmvc';
         protected $query;
-        protected $rows = array();
+        public $rows = array();
         private $conn;
         # Agregaremos la propiedad $mensaje, a fin de que el objeto, pueda comunicarse a través de mensajes con el resto de la aplicación.
         public $mensaje = 'Hecho';
@@ -40,7 +40,9 @@
         protected function get_results_from_query() {
             $this->open_connection();
             $result = $this->conn->query($this->query);
+
             while ($this->rows[] = $result->fetch_assoc());
+            
             $result->close();
             $this->close_connection();
             array_pop($this->rows);

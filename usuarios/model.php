@@ -1,6 +1,8 @@
 <?php
     # Importar modelo de abstracción de base de datos
     require_once('../core/db_abstract_model.php');
+    //require_once('D:\XAMPP\htdocs\MVC\mysql_table\mysql_table.php');
+
     class Usuario extends DBAbstractModel {
         ############################### PROPIEDADES ################################
         public $nombre;
@@ -80,14 +82,57 @@
             $this->mensaje = 'Usuario eliminado';
         }
 
+        # Reportar un usuario
+        public function reporte() {
+
+        /*  $this->query = "
+            SELECT id, nombre, apellido, email, clave
+            FROM usuarios
+            WHERE email = '$user_email'
+            ";
+            $this->get_results_from_query();
+        */
+            // Connect to database
+            $this->query = "SELECT apellido, nombre, email, clave FROM usuarios ORDER BY apellido";
+            $this->get_results_from_query();
+            
+            
+        //  $link = mysqli_connect('localhost','root','','dbmvc');
+        /*
+            $pdf = new PDF();
+            $pdf->AddPage("P");
+            // First table: output all columns
+            $pdf->Table($link,'select apellido, nombre, email from usuarios order by apellido');
+            $pdf->Output();
+        */
+            if(count($this->rows) !== 0) {
+                $this->mensaje = 'Reporte encontrado';
+            } else {
+                $this->mensaje = 'No existe Reporte';
+            }
+        }
+
         # Método constructor
         function __construct() {
-            $this->db_name = 'book_example';
+            //$this->db_name = 'book_example';
         }
         
-        # Método destructor del objeto
+        /*# Método destructor del objeto
         function __destruct() {
             unset($this);
         }
+        */
     }
+    /*class PDF extends PDF_MySQL_Table
+            {
+                function Header()
+                {
+                    // Title
+                    $this->SetFont('Arial','',18);
+                    $this->Cell(0,6,'Listado de Usuarios',0,1,'C');
+                    $this->Ln(10);
+                    // Ensure table header is printed
+                    parent::Header();
+                }
+            }*/
 ?>
